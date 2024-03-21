@@ -10,19 +10,20 @@ runs:
           # We only make check, not changes
           DOX_CONF_FILE=$(pwd)/Doxyfile
 
-          # ToDo: Add documentation about this command and describe better
+          # First shows the Doxygen config file. After that it adds more configurations to this file,
+          # including the src, include and lib directories
           {
               cat $DOX_CONF_FILE
               echo "INPUT" = $(pwd)/src $(pwd)/include $(pwd)/lib
           } > $DOX_CONF_FILE
 
           # Generate documentation
-          # ToDo: Add documentation about this command and describe better
+          # The following commnad clears Graphviz configuration (graphical representation) 
           sudo dot -c
 
           ERROR_FILE_FLAG=$(pwd)/dox_errors.txt
 
-          # ToDo: Add documentation and describe better this command
+          # Redirects  standard error into a file so we can read them
           DOXYGEN_COMMAND=$(doxygen -s $DOX_CONF_FILE) > $ERROR_FILE_FLAG
 
           if [ -s $ERROR_FILE_FLAG ]; then
